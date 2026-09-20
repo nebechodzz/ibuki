@@ -6,7 +6,7 @@
     <title>静岡駅のお迎え</title>
     <style>
         body {
-            background-color: #ffd1dc; /* 綺麗なピンク色の背景 */
+            background-color: #ffd1dc;
             font-family: 'Arial', sans-serif;
             text-align: center;
             display: flex;
@@ -105,7 +105,6 @@
             clickCount = (clickCount + 1) % ikanaiTexts.length;
             ikanaiBtn.innerText = ikanaiTexts[clickCount];
 
-            // ランダムにボタンを動かす
             const x = Math.random() * (window.innerWidth - 150);
             const y = Math.random() * (window.innerHeight - 100);
             
@@ -116,7 +115,6 @@
 
         function sayIku() {
             const card = document.getElementById('main-card');
-            // 「いく」を押した時の画面
             card.innerHTML = `
                 <img src="https://gifdb.com/images/high/shinchan-amazed-eyes-5uuozznkos1fu27c.webp" alt="喜んでいるGIF">
                 <h1 style="color: #d63384;">楽しみにしてる！</h1>
