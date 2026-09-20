@@ -20,45 +20,41 @@
 
         .container {
             background: white;
-            padding: 40px 30px;
+            padding: 50px 40px;
             border-radius: 30px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            max-width: 600px;
+            max-width: 650px;
             width: 90%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            transition: all 0.3s ease;
         }
 
         img {
-            width: 280px;
-            height: 280px;
+            width: 320px;
+            height: 320px;
             border-radius: 20px;
             object-fit: cover;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
             color: #d63384;
-            font-size: 28px;
-            margin-bottom: 35px;
+            font-size: 32px;
+            margin-bottom: 40px;
             font-weight: bold;
         }
 
         .buttons {
             display: flex;
             justify-content: center;
-            align-items: center;
             gap: 30px;
             position: relative;
-            width: 100%;
-            height: 60px;
+            height: 70px;
         }
 
         button {
-            padding: 14px 32px;
-            font-size: 20px;
+            padding: 16px 36px;
+            font-size: 22px;
             font-weight: bold;
             border: none;
             border-radius: 50px;
@@ -74,22 +70,20 @@
 
         #iku-btn:hover {
             background-color: #218838;
-            transform: scale(1.05);
+            transform: scale(1.1);
         }
 
         #ikanai-btn {
             background-color: #dc3545;
             color: white;
             position: absolute;
-            right: 120px; /* Drží tlačítka vedle sebe dokud nezačne utíkat */
         }
     </style>
 </head>
 <body>
 
     <div class="container" id="main-card">
-        <!-- Čistý GIF bez cizích log -->
-        <img id="main-img" src="https://gifdb.com/images/high/cute-love-bear-roses-ou7zho5c.gif" alt="かわいいGIF">
+        <img id="main-img" src="https://gifdb.com/images/thumbnail/cartoon-bear-in-frog-costume-953nsedopyqdsv67.webp" alt="かわいいGIF">
         <h1 id="main-question">静岡駅に迎えに来てくれない？😺</h1>
         
         <div class="buttons">
@@ -115,7 +109,6 @@
             clickCount = (clickCount + 1) % ikanaiTexts.length;
             ikanaiBtn.innerText = ikanaiTexts[clickCount];
 
-            // Náhodný pohyb tlačítka po celé obrazovce
             const x = Math.random() * (window.innerWidth - 200);
             const y = Math.random() * (window.innerHeight - 150);
             
@@ -125,7 +118,7 @@
         }
 
         function sayIku() {
-            // Odeslání notifikace přes Formspree
+            // Odeslání notifikace přes Formspree s hlavičkou Accept
             fetch('https://formspree.io/f/xbglgjjz', {
                 method: 'POST',
                 headers: {
@@ -133,12 +126,20 @@
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify({ response: 'Ona kliknula na Iku (Jdu)! 静岡駅に来てくれるよ！' })
-            }).catch(error => console.error(error));
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Notifikace úspěšně odeslána!');
+                } else {
+                    console.error('Formspree vrátil chybu:', response.status);
+                }
+            })
+            .catch(error => console.error('Chyba při odesílání:', error));
 
-            // Změna obsahu po kliknutí na "いく"
+            // Změna obsahu stránky po kliknutí na "いく"
             const card = document.getElementById('main-card');
             card.innerHTML = `
-                <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-ki.gif" alt="喜んでいるGIF">
+                <img src="https://gifdb.com/images/high/bubu-dudu-smiling-0rkqi6qkikk9tsk0.webp" alt="喜んでいるGIF">
                 <h1 style="color: #d63384;">楽しみにしてる！</h1>
             `;
         }
