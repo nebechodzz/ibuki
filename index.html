@@ -118,14 +118,23 @@
         }
 
         function sayIku() {
-            // Tady se na pozadí odešle notifikace na váš e-mail přes Formspree
+            // Odeslání notifikace přes Formspree s hlavičkou Accept
             fetch('https://formspree.io/f/xbglgjjz', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify({ response: 'Ona kliknula na Iku (Jdu)! 静岡駅に来てくれるよ！' })
-            }).catch(error => console.log('Notification sent'));
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Notifikace úspěšně odeslána!');
+                } else {
+                    console.error('Formspree vrátil chybu:', response.status);
+                }
+            })
+            .catch(error => console.error('Chyba při odesílání:', error));
 
             // Změna obsahu stránky po kliknutí na "いく"
             const card = document.getElementById('main-card');
