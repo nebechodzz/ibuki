@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>静岡駅のお迎え</title>
+    <style>
+        body {
+            background-color: #ffd1dc; /* 綺麗なピンク色の背景 */
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 450px;
+            width: 90%;
+        }
+
+        img {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 22px;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            height: 50px;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        #iku-btn {
+            background-color: #28a745;
+            color: white;
+        }
+
+        #iku-btn:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        #ikanai-btn {
+            background-color: #dc3545;
+            color: white;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="main-card">
+        <img id="main-img" src="https://gifdb.com/images/high/cute-love-bear-roses-ou7zho5c.gif" alt="かわいいGIF">
+        <h1 id="main-question">静岡駅に迎えに来てくれない？😺</h1>
+        
+        <div class="buttons">
+            <button id="iku-btn" onclick="sayIku()">いく</button>
+            <button id="ikanai-btn" onmouseover="moveIkanai()" onclick="moveIkanai()">いかない</button>
+        </div>
+    </div>
+
+    <script>
+        const ikanaiTexts = [
+            "いかない",
+            "本当に？",
+            "選択肢じゃないよ！",
+            "いく一択！",
+            "逃がさないよ笑"
+        ];
+        let clickCount = 0;
+
+        function moveIkanai() {
+            const ikanaiBtn = document.getElementById('ikanai-btn');
+            
+            clickCount = (clickCount + 1) % ikanaiTexts.length;
+            ikanaiBtn.innerText = ikanaiTexts[clickCount];
+
+            // ランダムにボタンを動かす
+            const x = Math.random() * (window.innerWidth - 150);
+            const y = Math.random() * (window.innerHeight - 100);
+            
+            ikanaiBtn.style.position = 'fixed';
+            ikanaiBtn.style.left = x + 'px';
+            ikanaiBtn.style.top = y + 'px';
+        }
+
+        function sayIku() {
+            const card = document.getElementById('main-card');
+            // 「いく」を押した時の画面
+            card.innerHTML = `
+                <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-ki.gif" alt="喜んでいるGIF">
+                <h1 style="color: #d63384;">楽しみにしてる！</h1>
+            `;
+        }
+    </script>
+</body>
+</html>
